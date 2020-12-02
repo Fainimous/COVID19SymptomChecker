@@ -7,7 +7,7 @@ var queryURL = "https://api.covidtracking.com/v1/states/" + state + "/current.js
 
 //COVID-19 symptoms
 var symptoms = ["fever", " dry cough", "tiredness", "aches", "sore throat", "diarrhea", "conjunctivitis", "headache", "loss of taste or smell", "rash",
-    "discoloration of fingers or toes", "difficulty breathing or shortness of breath", "chest pain or pressure", "loss of speech of movement"]
+    "discoloration of fingers or toes", "difficulty breathing or shortness of breath", "chest pain or pressure", "loss of speech of movement"];
 
 $.ajax({
     url: queryURL,
