@@ -5,14 +5,27 @@ var state = "nc";
 var queryURL = "https://api.covidtracking.com/v1/states/" + state + "/current.json";
 
 
-//COVID-19 symptoms
-var symptoms = ["fever", " dry cough", "tiredness", "aches", "sore throat", "diarrhea", "conjunctivitis", "headache", "loss of taste or smell", "rash",
-    "discoloration of fingers or toes", "difficulty breathing or shortness of breath", "chest pain or pressure", "loss of speech of movement"];
-    
+// //COVID-19 symptoms
+// var symptoms = ["fever", " dry cough", "tiredness", "aches", "sore throat", "diarrhea", "conjunctivitis", "headache", "loss of taste or smell", "rash",
+//     "discoloration of fingers or toes", "difficulty breathing or shortness of breath", "chest pain or pressure", "loss of speech of movement"];
+
 $("#btn").on("click", function (userSymptoms) {
-    var userSymptoms = $("#userSymptoms").val();
-    console.log(symptoms);
-    if (symptoms == userSymptoms) {
+    var userSymptoms = [$("#userSymptoms").val()];
+    var symptoms = ["fever", " dry cough", "tiredness", "aches", "sore throat", "diarrhea", "conjunctivitis", "headache", "loss of taste or smell", "rash",
+    "discoloration of fingers or toes", "difficulty breathing or shortness of breath", "chest pain or pressure", "loss of speech of movement"];
+    console.log(userSymptoms);
+    var count;
+    for (var i = 0; i < userSymptoms.length; i++) {
+        for (var j = 0; j < symptoms.length; j++) {
+            if (userSymptoms[i] == symptoms[j]) {
+                count ++;
+            } else {
+                continue;
+            }
+        }
+    }
+    console.log(count);
+    if (count >= 3) {
         alert('Go to the hospital for Covid treatment!');
         return;
     } else {
