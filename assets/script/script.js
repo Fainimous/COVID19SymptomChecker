@@ -5,9 +5,34 @@ var state = "nc";
 var queryURL = "https://api.covidtracking.com/v1/states/" + state + "/current.json";
 
 
-//COVID-19 symptoms
-var symptoms = ["fever", " dry cough", "tiredness", "aches", "sore throat", "diarrhea", "conjunctivitis", "headache", "loss of taste or smell", "rash",
+// //COVID-19 symptoms
+// var symptoms = ["fever", " dry cough", "tiredness", "aches", "sore throat", "diarrhea", "conjunctivitis", "headache", "loss of taste or smell", "rash",
+//     "discoloration of fingers or toes", "difficulty breathing or shortness of breath", "chest pain or pressure", "loss of speech of movement"];
+
+$("#btn").on("click", function (userSymptoms) {
+    var userSymptoms = [$("#userSymptoms").val()];
+    var symptoms = ["fever", " dry cough", "tiredness", "aches", "sore throat", "diarrhea", "conjunctivitis", "headache", "loss of taste or smell", "rash",
     "discoloration of fingers or toes", "difficulty breathing or shortness of breath", "chest pain or pressure", "loss of speech of movement"];
+    console.log(userSymptoms);
+    var count;
+    for (var i = 0; i < userSymptoms.length; i++) {
+        for (var j = 0; j < symptoms.length; j++) {
+            if (userSymptoms[i] == symptoms[j]) {
+                count ++;
+            } else {
+                continue;
+            }
+        }
+    }
+    console.log(count);
+    if (count >= 3) {
+        alert('Go to the hospital for Covid treatment!');
+        return;
+    } else {
+        alert('Please see your nearest general practice physician.');
+        return;
+    }
+})
 
 $.ajax({
     url: queryURL,
@@ -21,9 +46,6 @@ $.ajax({
 })
 
 //google API query
-var pos = "35.227,-80.843";
-var doctorQueryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyD3cN9fFq2wZXBnBtB9pCu-nv72cNa4MVE&location=" + pos + "&keyword=doctors%20office&rankby=distance";
-var covidQueryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyD3cN9fFq2wZXBnBtB9pCu-nv72cNa4MVE&location=" + pos + "&keyword=covid%20testing&rankby=distance";
 
 //get lat/long coordinants of the user
 //this is getting the coords, but it doesnt seem to be saving the results to the global varibale "pos" I set above...
@@ -33,40 +55,59 @@ function getCoordinates() {
     if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
         pos = position.coords.latitude + "," + position.coords.longitude;
+        localStorage.setItem("position", JSON.stringify(pos));
     }, () => {
         // Browser supports geolocation, but user has denied permission
         console.log("user has denied permission for Geolocation");
     });
+        navigator.geolocation.getCurrentPosition(position => {
+            pos = position.coords.latitude + "," + position.coords.longitude;
+        }, () => {
+            // Browser supports geolocation, but user has denied permission
+            console.log("user has denied permission for Geolocation");
+        });
     } else {
-    // Browser doesn't support geolocation
-    console.log("Browser does not support Geolocation");
+        // Browser doesn't support geolocation
+        console.log("Browser does not support Geolocation");
     }
 }
 
 
-
 // Perform a Places Nearby Search Request for doctors offices
 function getNearbyDoctorsOffice() {
+    var pos = JSON.parse(localStorage.getItem("position"));
+    console.log(pos);
+    var doctorQueryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyD3cN9fFq2wZXBnBtB9pCu-nv72cNa4MVE&location=" + pos + "&keyword=doctors%20office&rankby=distance";
+    console.log(doctorQueryURL);
+//    $.ajax({
+//        url: doctorQueryURL,
+//        method: "GET"
+//    }).then(function (response) {
+//        console.log(response);
+//    }) 
     $.ajax({
         url: doctorQueryURL,
         method: "GET"
     }).then(function (response) {
         console.log(response);
-    }) 
+    })
 }
 
 // Perform a Places Nearby Search Request for Covid testing
 function getNearbyCovidTesting(position) {
+    var pos = JSON.parse(localStorage.getItem("position"));
+    var covidQueryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyD3cN9fFq2wZXBnBtB9pCu-nv72cNa4MVE&location=" + pos + "&keyword=covid%20testing&rankby=distance";
     $.ajax({
         url: covidQueryURL,
         method: "GET"
     }).then(function (response) {
         console.log(response);
-    }) 
+    })
 }
 
 // un-comment these to test :]
-getNearbyDoctorsOffice();
+//getNearbyDoctorsOffice();
 //getNearbyCovidTesting();
+//getCoordinates();
 
 
