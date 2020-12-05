@@ -8,6 +8,18 @@ var queryURL = "https://api.covidtracking.com/v1/states/" + state + "/current.js
 //COVID-19 symptoms
 var symptoms = ["fever", " dry cough", "tiredness", "aches", "sore throat", "diarrhea", "conjunctivitis", "headache", "loss of taste or smell", "rash",
     "discoloration of fingers or toes", "difficulty breathing or shortness of breath", "chest pain or pressure", "loss of speech of movement"];
+    
+$("#btn").on("click", function (userSymptoms) {
+    var userSymptoms = $("#userSymptoms").val();
+    console.log(symptoms);
+    if (symptoms == userSymptoms) {
+        alert('Go to the hospital for Covid treatment!');
+        return;
+    } else {
+        alert('Please see your nearest general practice physician.');
+        return;
+    }
+})
 
 $.ajax({
     url: queryURL,
@@ -35,9 +47,15 @@ function getCoordinates() {
         // Browser supports geolocation, but user has denied permission
         console.log("user has denied permission for Geolocation");
     });
+        navigator.geolocation.getCurrentPosition(position => {
+            pos = position.coords.latitude + "," + position.coords.longitude;
+        }, () => {
+            // Browser supports geolocation, but user has denied permission
+            console.log("user has denied permission for Geolocation");
+        });
     } else {
-    // Browser doesn't support geolocation
-    console.log("Browser does not support Geolocation");
+        // Browser doesn't support geolocation
+        console.log("Browser does not support Geolocation");
     }
 }
 
@@ -54,6 +72,12 @@ function getNearbyDoctorsOffice() {
 //    }).then(function (response) {
 //        console.log(response);
 //    }) 
+    $.ajax({
+        url: doctorQueryURL,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response);
+    })
 }
 
 // Perform a Places Nearby Search Request for Covid testing
@@ -65,7 +89,7 @@ function getNearbyCovidTesting(position) {
         method: "GET"
     }).then(function (response) {
         console.log(response);
-    }) 
+    })
 }
 
 // un-comment these to test :]
