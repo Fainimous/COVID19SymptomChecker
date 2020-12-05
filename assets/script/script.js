@@ -1,9 +1,22 @@
 // global variables
 
+function displayCovidStats() {
 // The Covid Tracking Project API query
-var state = "nc";
+var state = JSON.parse(localStorage.getItem("state"));
 var queryURL = "https://api.covidtracking.com/v1/states/" + state + "/current.json";
 
+$.ajax({
+    url: queryURL,
+    method: "GET"
+}).then(function (response) {
+    console.log(response);
+    console.log('State: ' + response.state);
+    console.log('Positive Cases: ' + response.positive + '.');
+    console.log('Negative Cases: ' + response.negative + '.');
+    console.log('Total Recovered: ' + response.recovered + '.');
+    //dynamically create HTML for the Covid stats
+})
+}
 $("#validateBtn").on("click", function () {
     var count = 0;
 $(".symptoms").each(function(){
@@ -47,21 +60,10 @@ $("#btn").on("click", function (userSymptoms) {
     }
 })
 
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function (response) {
-    console.log(response);
-    console.log('State: ' + response.state);
-    console.log('Positive Cases: ' + response.positive + '.');
-    console.log('Negative Cases: ' + response.negative + '.');
-    console.log('Total Recovered: ' + response.recovered + '.');
-})
 
-//google API query
 
-//get lat/long coordinants of the user
-//this is getting the coords, but it doesnt seem to be saving the results to the global varibale "pos" I set above...
+
+//get lat/long coordinantes of the user
 
 function getCoordinates() {
     // Try HTML5 geolocation
@@ -69,6 +71,7 @@ function getCoordinates() {
     navigator.geolocation.getCurrentPosition(position => {
         pos = position.coords.latitude + "," + position.coords.longitude;
         localStorage.setItem("position", JSON.stringify(pos));
+        getStateCode();
     }, () => {
         // Browser supports geolocation, but user has denied permission
         console.log("user has denied permission for Geolocation");
@@ -82,10 +85,26 @@ function getCoordinates() {
     } else {
         // Browser doesn't support geolocation
         console.log("Browser does not support Geolocation");
+    };
+    // take the coords variable and convert it to a State code for the COVD tracker API call here
     }
+
+function getStateCode() {
+    var pos = JSON.parse(localStorage.getItem("position"));
+    var reverseGeoURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?latlng=" + pos + "&key=AIzaSyD3cN9fFq2wZXBnBtB9pCu-nv72cNa4MVE";
+    $.ajax({
+        url: reverseGeoURL,
+        method: "GET"
+       //This will return the reverse geolocation data, where we should find the state code to assign to local storage along with the coords
+    }).then(function (response) {
+        localStorage.setItem("state", JSON.stringify(response.results[0].address_components[5].short_name));
+        displayCovidStats();
+    }
+    
+    )
 }
 
-
+//google API query
 // Perform a Places Nearby Search Request for doctors offices
 function getNearbyDoctorsOffice() {
     var pos = JSON.parse(localStorage.getItem("position"));
@@ -120,7 +139,7 @@ function getNearbyDoctorsOffice() {
 }
 
 // Perform a Places Nearby Search Request for Covid testing
-function getNearbyCovidTesting(position) {
+function getNearbyCovidTesting() {
     var pos = JSON.parse(localStorage.getItem("position"));
     var covidQueryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyD3cN9fFq2wZXBnBtB9pCu-nv72cNa4MVE&location=" + pos + "&keyword=covid%20testing&rankby=distance";
     $.ajax({
@@ -156,6 +175,6 @@ getNearbyCovidTesting();
 //getCoordinates();
 if (localStorage.getItem("position") === null) {
     getCoordinates();
-  };
+}
 //getNearbyDoctorsOffice();
 //getNearbyDoctorsOffice();
