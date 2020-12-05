@@ -167,9 +167,6 @@ function getNearbyCovidTesting() {
 }
 
 // un-comment these to test :]
-getNearbyDoctorsOffice();
-console.log
-getNearbyCovidTesting();
 //getNearbyDoctorsOffice();
 //getNearbyCovidTesting();
 //getCoordinates();
