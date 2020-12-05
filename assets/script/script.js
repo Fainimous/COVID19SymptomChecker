@@ -1,81 +1,51 @@
 // global variables
 
 function displayCovidStats() {
-// The Covid Tracking Project API query
-var state = JSON.parse(localStorage.getItem("state"));
-var queryURL = "https://api.covidtracking.com/v1/states/" + state + "/current.json";
+    // The Covid Tracking Project API query
+    var state = JSON.parse(localStorage.getItem("state"));
+    var queryURL = "https://api.covidtracking.com/v1/states/" + state + "/current.json";
 
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function (response) {
-    console.log(response);
-    console.log('State: ' + response.state);
-    console.log('Positive Cases: ' + response.positive + '.');
-    console.log('Negative Cases: ' + response.negative + '.');
-    console.log('Total Recovered: ' + response.recovered + '.');
-    //dynamically create HTML for the Covid stats
-})
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response);
+        console.log('State: ' + response.state);
+        console.log('Positive Cases: ' + response.positive + '.');
+        console.log('Negative Cases: ' + response.negative + '.');
+        console.log('Total Recovered: ' + response.recovered + '.');
+        //dynamically create HTML for the Covid stats
+    })
 }
 $("#validateBtn").on("click", function () {
     var count = 0;
-$(".symptoms").each(function(){
-    if (this.checked){
-        count +=1;
-    }
-});
-if (count >= 3) {
-    $("#message").text("You may have COVID-19. Here is a list of testing centers near you:");
-} else {
-    $("#message").text("You may not have COVID-19. Here is a list of doctors near you:");
-}
-});
-
-// //COVID-19 symptoms
-// var symptoms = ["fever", " dry cough", "tiredness", "aches", "sore throat", "diarrhea", "conjunctivitis", "headache", "loss of taste or smell", "rash",
-//     "discoloration of fingers or toes", "difficulty breathing or shortness of breath", "chest pain or pressure", "loss of speech of movement"];
-
-$("#btn").on("click", function (userSymptoms) {
-    var userSymptoms = [$("#userSymptoms").val()];
-    var symptoms = ["fever", " dry cough", "tiredness", "aches", "sore throat", "diarrhea", "conjunctivitis", "headache", "loss of taste or smell", "rash",
-    "discoloration of fingers or toes", "difficulty breathing or shortness of breath", "chest pain or pressure", "loss of speech of movement"];
-    console.log(userSymptoms);
-    var count;
-    for (var i = 0; i < userSymptoms.length; i++) {
-        for (var j = 0; j < symptoms.length; j++) {
-            if (userSymptoms[i] == symptoms[j]) {
-                count ++;
-            } else {
-                continue;
-            }
+    $(".symptoms").each(function () {
+        if (this.checked) {
+            count += 1;
         }
-    }
-    console.log(count);
+    });
     if (count >= 3) {
-        alert('Go to the hospital for Covid treatment!');
-        return;
+        $("#message").text("You may have COVID-19. Here is a list of testing centers near you:");
+        getNearbyCovidTesting();
     } else {
-        alert('Please see your nearest general practice physician.');
-        return;
+        $("#message").text("You may not have COVID-19. Here is a list of doctors near you:");
+        getNearbyDoctorsOffice();
     }
-})
-
-
-
+});
 
 //get lat/long coordinantes of the user
 
 function getCoordinates() {
     // Try HTML5 geolocation
     if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position => {
-        pos = position.coords.latitude + "," + position.coords.longitude;
-        localStorage.setItem("position", JSON.stringify(pos));
-        getStateCode();
-    }, () => {
-        // Browser supports geolocation, but user has denied permission
-        console.log("user has denied permission for Geolocation");
-    });
+        navigator.geolocation.getCurrentPosition(position => {
+            pos = position.coords.latitude + "," + position.coords.longitude;
+            localStorage.setItem("position", JSON.stringify(pos));
+            getStateCode();
+        }, () => {
+            // Browser supports geolocation, but user has denied permission
+            console.log("user has denied permission for Geolocation");
+        });
         navigator.geolocation.getCurrentPosition(position => {
             pos = position.coords.latitude + "," + position.coords.longitude;
         }, () => {
@@ -87,7 +57,7 @@ function getCoordinates() {
         console.log("Browser does not support Geolocation");
     };
     // take the coords variable and convert it to a State code for the COVD tracker API call here
-    }
+}
 
 function getStateCode() {
     var pos = JSON.parse(localStorage.getItem("position"));
@@ -95,12 +65,12 @@ function getStateCode() {
     $.ajax({
         url: reverseGeoURL,
         method: "GET"
-       //This will return the reverse geolocation data, where we should find the state code to assign to local storage along with the coords
+        //This will return the reverse geolocation data, where we should find the state code to assign to local storage along with the coords
     }).then(function (response) {
         localStorage.setItem("state", JSON.stringify(response.results[0].address_components[5].short_name));
         displayCovidStats();
     }
-    
+
     )
 }
 
@@ -131,11 +101,24 @@ function getNearbyDoctorsOffice() {
                 method: "GET"
             }).then(function (response) {
                 //dynamically create HTML results here
+                var nameEl = $('<h2 id="title">');
+                var phoneEl = $('<p>');
+                var addressEl = $('<p>');
                 console.log(response);
+                var name = response.result.name;
+                var phone = response.result.formatted_phone_number;
+                var address = response.result.vicinity;
+                nameEl.text(name);
+                phoneEl.text(phone);
+                addressEl.text(address);
+                $('#locations').append(nameEl, phoneEl, addressEl);
+                console.log(name);
+                console.log(phone);
+                console.log(address);
             })
-            }
+        }
     })
-    
+
 }
 
 // Perform a Places Nearby Search Request for Covid testing
@@ -160,18 +143,27 @@ function getNearbyCovidTesting() {
                 method: "GET"
             }).then(function (response) {
                 //dynamically create HTML results here
+                var nameEl = $('<h2 id="title">');
+                var phoneEl = $('<p>');
+                var addressEl = $('<p>');
                 console.log(response);
+                var name = response.result.name;
+                var phone = response.result.formatted_phone_number;
+                var address = response.result.vicinity;
+                nameEl.text(name);
+                phoneEl.text(phone);
+                addressEl.text(address);
+                $('#locations').append(nameEl, phoneEl, addressEl);
+                console.log(name);
+                console.log(phone);
+                console.log(address);
             })
-            }
+        }
     })
 }
 
 // un-comment these to test :]
-//getNearbyDoctorsOffice();
-//getNearbyCovidTesting();
 //getCoordinates();
 if (localStorage.getItem("position") === null) {
     getCoordinates();
 }
-//getNearbyDoctorsOffice();
-//getNearbyDoctorsOffice();
