@@ -1,66 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- This links the new css framework called "Pure" -->
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <title>COVID-19 Checker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- This links the new css framework called "Pure" -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <title>COVID-19 Checker</title>
 </head>
+
 <body>
 
-    <div class="wrapper">
-        <header>
-          <h2>What are your symptoms?</h2>
-          <p><strong>Please check the appropriate boxes</strong></p>
-        </header>
-          </div>
-          <div>
-                <input type = "checkbox"
-                    id = "Fever"
-                    value = "Fever" />
-                <label for = "Fever">Fever</label>
-                <input type = "checkbox"
-                    id = "Tiredness"
-                    value = "Tiredeness" />
-                <label for = "Tiredness">Tiredness</label>
-                <input type = "checkbox"
-                    id = "Dry Cough"
-                    value = "Dry Cough" />
-                <label for = "Dry Cough">Dry Cough</label>
-                <input type = "checkbox"
-                    id = "Sore Throat"
-                    value = "Sore Throat" />
-                <label for = "Sore Throat">Sore Throat</label>
-                <input type = "checkbox"
-                    id = "Shortness of Breath"
-                    value = "Shortness of Breath" />
-                <label for = "Shortness of Breath">Shortness of Breath</label>
-                <input type = "checkbox"
-                    id = "Loss of Taste or Smell"
-                    value = "Loss of Taste or Smell" />
-                <label for = "Loss of Taste or Smell">Loss of Taste or Smell</label>
-                <input type = "checkbox"
-                    id = "Chest Pain"
-                    value = "Chest Pain" />
-                <label for = "Chest Pain">Chest Pain</label>
-                <input type = "checkbox"
-                    id = "Rash"
-                    value = "Rash" />
-                <label for = "Rash">Rash</label>
-          </div>
-          <br>
-          <div>What people in your area are experiencing right now</div>
-        </div>
-        <br>
-      </div>
-      <!-- Map appears here-->
-      <div id="map">map</div>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3cN9fFq2wZXBnBtB9pCu-nv72cNa4MVE&libraries=places"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="assets/script/script.js"></script>
+  <div class="wrapper">
+    <header>
+      <h2>What are your symptoms?</h2>
+      <p><strong>Please check the appropriate boxes</strong></p>
+    </header>
+  </div>
+  <div>
+    <input type="checkbox" class="symptoms" value="Fever" />
+    <label for="Fever">Fever</label>
+    <br>
+    <input type="checkbox" class="symptoms" value="Tiredeness" />
+    <label for="Tiredness">Tiredness</label>
+    <br>
+    <input type="checkbox" class="symptoms" value="Dry Cough" />
+    <label for="Dry Cough">Dry Cough</label>
+    <br>
+    <input type="checkbox" class="symptoms" value="Sore Throat" />
+    <label for="Sore Throat">Sore Throat</label>
+    <br>
+    <input type="checkbox" class="symptoms" value="Shortness of Breath" />
+    <label for="Shortness of Breath">Shortness of Breath</label>
+    <br>
+    <input type="checkbox" class="symptoms" value="Loss of Taste or Smell" />
+    <label for="Loss of Taste or Smell">Loss of Taste or Smell</label>
+    <br>
+    <input type="checkbox" class="symptoms" value="Chest Pain" />
+    <label for="Chest Pain">Chest Pain</label>
+    <br>
+    <input type="checkbox" class="symptoms" value="Rash" />
+    <label for="Rash">Rash</label>
+  </div>
+  <br>
+<button id ="validateBtn">Validate</button>
+<br>
+<br>
+<div id = "message"></div>
+<br>
+  <div>What people in your area are experiencing right now:</div>
+  </div>
+  <br>
+  </div>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3cN9fFq2wZXBnBtB9pCu-nv72cNa4MVE&libraries=places"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="assets/script/script.js"></script>
 
 </body>
+
 </html>

@@ -5,9 +5,22 @@ var state = "nc";
 var queryURL = "https://api.covidtracking.com/v1/states/" + state + "/current.json";
 
 
-//COVID-19 symptoms
-var symptoms = ["fever", " dry cough", "tiredness", "aches", "sore throat", "diarrhea", "conjunctivitis", "headache", "loss of taste or smell", "rash",
-    "discoloration of fingers or toes", "difficulty breathing or shortness of breath", "chest pain or pressure", "loss of speech of movement"];
+
+$("#validateBtn").on("click", function () {
+    var count = 0;
+$(".symptoms").each(function(){
+    if (this.checked){
+        count +=1;
+    }
+});
+if (count >= 3) {
+    $("#message").text("You may have COVID-19. Here is a list of testing centers near you:");
+} else {
+    $("#message").text("You may not have COVID-19. Here is a list of doctors near you:");
+}
+});
+
+
 
 $.ajax({
     url: queryURL,
@@ -67,6 +80,7 @@ function getNearbyCovidTesting(position) {
 
 // un-comment these to test :]
 getNearbyDoctorsOffice();
-//getNearbyCovidTesting();
+console.log
+getNearbyCovidTesting();
 
 
