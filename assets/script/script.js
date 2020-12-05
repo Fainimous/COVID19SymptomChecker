@@ -18,6 +18,7 @@ function displayCovidStats() {
     })
 }
 $("#validateBtn").on("click", function () {
+    $('#locations').text("");
     var count = 0;
     $(".symptoms").each(function () {
         if (this.checked) {
