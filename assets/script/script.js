@@ -33,9 +33,6 @@ $.ajax({
 })
 
 //google API query
-var pos = "35.227,-80.843";
-var doctorQueryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyD3cN9fFq2wZXBnBtB9pCu-nv72cNa4MVE&location=" + pos + "&keyword=doctors%20office&rankby=distance";
-var covidQueryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyD3cN9fFq2wZXBnBtB9pCu-nv72cNa4MVE&location=" + pos + "&keyword=covid%20testing&rankby=distance";
 
 //get lat/long coordinants of the user
 //this is getting the coords, but it doesnt seem to be saving the results to the global varibale "pos" I set above...
@@ -43,6 +40,13 @@ var covidQueryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis
 function getCoordinates() {
     // Try HTML5 geolocation
     if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+        pos = position.coords.latitude + "," + position.coords.longitude;
+        localStorage.setItem("position", JSON.stringify(pos));
+    }, () => {
+        // Browser supports geolocation, but user has denied permission
+        console.log("user has denied permission for Geolocation");
+    });
         navigator.geolocation.getCurrentPosition(position => {
             pos = position.coords.latitude + "," + position.coords.longitude;
         }, () => {
@@ -56,9 +60,18 @@ function getCoordinates() {
 }
 
 
-
 // Perform a Places Nearby Search Request for doctors offices
 function getNearbyDoctorsOffice() {
+    var pos = JSON.parse(localStorage.getItem("position"));
+    console.log(pos);
+    var doctorQueryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyD3cN9fFq2wZXBnBtB9pCu-nv72cNa4MVE&location=" + pos + "&keyword=doctors%20office&rankby=distance";
+    console.log(doctorQueryURL);
+//    $.ajax({
+//        url: doctorQueryURL,
+//        method: "GET"
+//    }).then(function (response) {
+//        console.log(response);
+//    }) 
     $.ajax({
         url: doctorQueryURL,
         method: "GET"
@@ -69,6 +82,8 @@ function getNearbyDoctorsOffice() {
 
 // Perform a Places Nearby Search Request for Covid testing
 function getNearbyCovidTesting(position) {
+    var pos = JSON.parse(localStorage.getItem("position"));
+    var covidQueryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyD3cN9fFq2wZXBnBtB9pCu-nv72cNa4MVE&location=" + pos + "&keyword=covid%20testing&rankby=distance";
     $.ajax({
         url: covidQueryURL,
         method: "GET"
@@ -78,7 +93,8 @@ function getNearbyCovidTesting(position) {
 }
 
 // un-comment these to test :]
-getNearbyDoctorsOffice();
+//getNearbyDoctorsOffice();
 //getNearbyCovidTesting();
+//getCoordinates();
 
 
