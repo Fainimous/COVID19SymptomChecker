@@ -17,3 +17,20 @@
   margin-right: auto;
 
 }
+.header{
+  background-color: #505A5B;
+  padding: 1px;
+  color: white;
+  text-align: center;
+  font-size: 42px;
+}
+.footer-left{
+  float: left;
+}
+.footer-right{
+  float: right;
+}
+
+ul {
+  list-style-type: none;
+}

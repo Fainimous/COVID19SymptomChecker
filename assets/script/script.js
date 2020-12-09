@@ -9,14 +9,20 @@ function displayCovidStats() {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        console.log(response);
-        console.log('State: ' + response.state);
-        console.log('Positive Cases: ' + response.positive + '.');
-        console.log('Negative Cases: ' + response.negative + '.');
-        console.log('Total Recovered: ' + response.recovered + '.');
         //dynamically create HTML for the Covid stats
+        var statsDivEL = $('<div>');
+        var stateEL = $('<h2 id="state">');
+        var positiveCasesEL = $('<p>');
+        var negativeCasesEL = $('<p>');
+        var totalRecoveredEL = $('<p>');
+        stateEL.text("Covid stats for your state: " + response.state);
+        positiveCasesEL.text("Positive Cases: " + response.positive);
+        negativeCasesEL.text("Negative Cases: " + response.negative);
+        totalRecoveredEL.text("Total Recovered: " + response.recovered);
+        statsDivEL.append(stateEL,positiveCasesEL,negativeCasesEL,totalRecoveredEL);
     })
 }
+
 $("#validateBtn").on("click", function () {
     $('#screening').attr('class', 'hide');
     $('#checkBoxes').attr('class', 'hide');
