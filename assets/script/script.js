@@ -18,6 +18,9 @@ function displayCovidStats() {
     })
 }
 $("#validateBtn").on("click", function () {
+    $('#screening').attr('class', 'hide');
+    $('#checkBoxes').attr('class', 'hide');
+    $('#validateBtn').attr('class', 'hide');
     $('#locations').text("");
     var count = 0;
     $(".symptoms").each(function () {
@@ -109,13 +112,21 @@ function getNearbyDoctorsOffice() {
                 var name = response.result.name;
                 var phone = response.result.formatted_phone_number;
                 var address = response.result.vicinity;
+                var website = response.result.website;
                 nameEl.text(name);
                 phoneEl.text(phone);
                 addressEl.text(address);
                 $('#locations').append(nameEl, phoneEl, addressEl);
+                $('#locations').append(nameEl, phoneEl, addressEl);
+                if (website == null) {
+                    $('<p>No Website Information Provided.</p>').appendTo($('#locations'));
+                } else {
+                    $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($('#locations'));
+                }
                 console.log(name);
                 console.log(phone);
                 console.log(address);
+                console.log('Website: ', website);
             })
         }
     })
@@ -151,13 +162,20 @@ function getNearbyCovidTesting() {
                 var name = response.result.name;
                 var phone = response.result.formatted_phone_number;
                 var address = response.result.vicinity;
+                var website = response.result.website;
                 nameEl.text(name);
                 phoneEl.text(phone);
                 addressEl.text(address);
                 $('#locations').append(nameEl, phoneEl, addressEl);
+                if (website == null) {
+                    $('<p>No Website Information Provided.</p>').appendTo($('#locations'));
+                } else {
+                    $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($('#locations'));
+                }
                 console.log(name);
                 console.log(phone);
                 console.log(address);
+                console.log(website);
             })
         }
     })
