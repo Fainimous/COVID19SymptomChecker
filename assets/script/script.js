@@ -9,8 +9,8 @@ function displayCovidStats() {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
+        console.log(response);
         //dynamically create HTML for the Covid stats
-        var statsDivEL = $('<div>');
         var stateEL = $('<h2 id="state">');
         var positiveCasesEL = $('<p>');
         var negativeCasesEL = $('<p>');
@@ -19,8 +19,7 @@ function displayCovidStats() {
         positiveCasesEL.text("Positive Cases: " + response.positive);
         negativeCasesEL.text("Negative Cases: " + response.negative);
         totalRecoveredEL.text("Total Recovered: " + response.recovered);
-        statsDivEL.append(stateEL,positiveCasesEL,negativeCasesEL,totalRecoveredEL);
-        $('#covidstats').append(statsDivEL);
+        $('#covidstats').append(stateEL, positiveCasesEL, negativeCasesEL, totalRecoveredEL);
     })
 }
 
@@ -82,7 +81,7 @@ function getStateCode() {
         //This will return the reverse geolocation data, where we should find the state code to assign to local storage along with the coords
     }).then(function (response) {
         localStorage.setItem("state", JSON.stringify(response.results[0].address_components[5].short_name));
-        displayCovidStats();
+        // displayCovidStats();
     }
 
     )
@@ -92,16 +91,13 @@ function getStateCode() {
 // Perform a Places Nearby Search Request for doctors offices
 function getNearbyDoctorsOffice() {
     var pos = JSON.parse(localStorage.getItem("position"));
-    console.log(pos);
     var doctorQueryURL = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyD3cN9fFq2wZXBnBtB9pCu-nv72cNa4MVE&location=" + pos + "&keyword=doctors%20office&rankby=distance";
-    console.log(doctorQueryURL);
     //get the nearby doctors offices via doctor query API
     $.ajax({
         url: doctorQueryURL,
         method: "GET"
         //this will return the 20 nearest locations.  We need to get the first 5 Plcae_ids to make another call and get more detailed information.
     }).then(function (response) {
-        console.log(response);
         //create an array of the first 5 place_ids
         var places = [];
         for (var i = 0; i < 5; i++) {
@@ -119,7 +115,6 @@ function getNearbyDoctorsOffice() {
                 var nameEl = $('<h2 id="title">');
                 var phoneEl = $('<p>');
                 var addressEl = $('<p>');
-                console.log(response);
                 var name = response.result.name;
                 var phone = response.result.formatted_phone_number;
                 var address = response.result.vicinity;
@@ -134,10 +129,6 @@ function getNearbyDoctorsOffice() {
                 } else {
                     $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($(cardEL));
                 }
-                console.log(name);
-                console.log(phone);
-                console.log(address);
-                console.log('Website: ', website);
             })
         }
     })
@@ -152,7 +143,6 @@ function getNearbyCovidTesting() {
         url: covidQueryURL,
         method: "GET"
     }).then(function (response) {
-        console.log(response);
         //create an array of the first 5 place_ids
         var places = [];
         for (var i = 0; i < 5; i++) {
@@ -170,7 +160,6 @@ function getNearbyCovidTesting() {
                 var nameEl = $('<h2 id="title">');
                 var phoneEl = $('<p>');
                 var addressEl = $('<p>');
-                console.log(response);
                 var name = response.result.name;
                 var phone = response.result.formatted_phone_number;
                 var address = response.result.vicinity;
@@ -185,10 +174,6 @@ function getNearbyCovidTesting() {
                 } else {
                     $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($(cardEL));
                 }
-                console.log(name);
-                console.log(phone);
-                console.log(address);
-                console.log(website);
             })
         }
     })
