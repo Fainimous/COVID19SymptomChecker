@@ -8,18 +8,15 @@
   <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
   <link rel="stylesheet" href="assets/css/style.css">
-  <title>COVID-19 Checker</title>
+  <title>COVID-19 Symptom Checker</title>
 </head>
-
 <body>
-
-  <div class="wrapper">
+  <div class="container">
     <header>
-      <h2>What are your symptoms?</h2>
       <p><strong>Please check the appropriate boxes</strong></p>
     </header>
-  </div>
-  <div>
+    <h2>What are your symptoms?</h2>
+    <div class = symptoms-list>
     <input type="checkbox" class="symptoms" value="Fever" />
     <label for="Fever">Fever</label>
     <br>
@@ -43,13 +40,15 @@
     <br>
     <input type="checkbox" class="symptoms" value="Rash" />
     <label for="Rash">Rash</label>
-  </div>
+  <br>
   <br>
 <button id ="validateBtn">Validate</button>
+    </div>
 <br>
 <br>
 <div id = "message"></div>
 <br>
+</div>
   <div>What people in your area are experiencing right now:</div>
   </div>
   <br>
