@@ -115,6 +115,7 @@ function getNearbyDoctorsOffice() {
                 method: "GET"
             }).then(function (response) {
                 //dynamically create HTML results here
+                var cardEL = $('<div class="card">');
                 var nameEl = $('<h2 id="title">');
                 var phoneEl = $('<p>');
                 var addressEl = $('<p>');
@@ -126,12 +127,12 @@ function getNearbyDoctorsOffice() {
                 nameEl.text(name);
                 phoneEl.text(phone);
                 addressEl.text(address);
-                $('#locations').append(nameEl, phoneEl, addressEl);
-                $('#locations').append(nameEl, phoneEl, addressEl);
+                cardEL.append(nameEl, phoneEl, addressEl);
+                $('#locations').append(cardEL);
                 if (website == null) {
-                    $('<p>No Website Information Provided.</p>').appendTo($('#locations'));
+                    $('<p>No Website Information Provided.</p>').appendTo($(cardEL));
                 } else {
-                    $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($('#locations'));
+                    $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($(cardEL));
                 }
                 console.log(name);
                 console.log(phone);
@@ -165,6 +166,7 @@ function getNearbyCovidTesting() {
                 method: "GET"
             }).then(function (response) {
                 //dynamically create HTML results here
+                var cardEL = $('<div class="card">');
                 var nameEl = $('<h2 id="title">');
                 var phoneEl = $('<p>');
                 var addressEl = $('<p>');
@@ -176,11 +178,12 @@ function getNearbyCovidTesting() {
                 nameEl.text(name);
                 phoneEl.text(phone);
                 addressEl.text(address);
-                $('#locations').append(nameEl, phoneEl, addressEl);
+                $(cardEL).append(nameEl, phoneEl, addressEl);
+                $('#locations').append(cardEL);
                 if (website == null) {
-                    $('<p>No Website Information Provided.</p>').appendTo($('#locations'));
+                    $('<p>No Website Information Provided.</p>').appendTo($(cardEL));
                 } else {
-                    $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($('#locations'));
+                    $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($(cardEL));
                 }
                 console.log(name);
                 console.log(phone);
