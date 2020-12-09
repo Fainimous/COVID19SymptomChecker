@@ -20,6 +20,7 @@ function displayCovidStats() {
         negativeCasesEL.text("Negative Cases: " + response.negative);
         totalRecoveredEL.text("Total Recovered: " + response.recovered);
         statsDivEL.append(stateEL,positiveCasesEL,negativeCasesEL,totalRecoveredEL);
+        $('#covidstats').append(statsDivEL);
     })
 }
 
@@ -37,10 +38,13 @@ $("#validateBtn").on("click", function () {
     if (count >= 3) {
         $("#message").text("You may have COVID-19. Here is a list of testing centers near you:");
         getNearbyCovidTesting();
+        displayCovidStats();
     } else {
         $("#message").text("You may not have COVID-19. Here is a list of doctors near you:");
         getNearbyDoctorsOffice();
+        displayCovidStats();
     }
+    
 });
 
 //get lat/long coordinantes of the user
@@ -111,6 +115,7 @@ function getNearbyDoctorsOffice() {
                 method: "GET"
             }).then(function (response) {
                 //dynamically create HTML results here
+                var cardEL = $('<div class="card">');
                 var nameEl = $('<h2 id="title">');
                 var phoneEl = $('<p>');
                 var addressEl = $('<p>');
@@ -122,12 +127,12 @@ function getNearbyDoctorsOffice() {
                 nameEl.text(name);
                 phoneEl.text(phone);
                 addressEl.text(address);
-                $('#locations').append(nameEl, phoneEl, addressEl);
-                $('#locations').append(nameEl, phoneEl, addressEl);
+                cardEL.append(nameEl, phoneEl, addressEl);
+                $('#locations').append(cardEL);
                 if (website == null) {
-                    $('<p>No Website Information Provided.</p>').appendTo($('#locations'));
+                    $('<p>No Website Information Provided.</p>').appendTo($(cardEL));
                 } else {
-                    $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($('#locations'));
+                    $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($(cardEL));
                 }
                 console.log(name);
                 console.log(phone);
@@ -161,6 +166,7 @@ function getNearbyCovidTesting() {
                 method: "GET"
             }).then(function (response) {
                 //dynamically create HTML results here
+                var cardEL = $('<div class="card">');
                 var nameEl = $('<h2 id="title">');
                 var phoneEl = $('<p>');
                 var addressEl = $('<p>');
@@ -172,11 +178,12 @@ function getNearbyCovidTesting() {
                 nameEl.text(name);
                 phoneEl.text(phone);
                 addressEl.text(address);
-                $('#locations').append(nameEl, phoneEl, addressEl);
+                $(cardEL).append(nameEl, phoneEl, addressEl);
+                $('#locations').append(cardEL);
                 if (website == null) {
-                    $('<p>No Website Information Provided.</p>').appendTo($('#locations'));
+                    $('<p>No Website Information Provided.</p>').appendTo($(cardEL));
                 } else {
-                    $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($('#locations'));
+                    $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($(cardEL));
                 }
                 console.log(name);
                 console.log(phone);
