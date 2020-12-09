@@ -20,6 +20,7 @@ function displayCovidStats() {
         negativeCasesEL.text("Negative Cases: " + response.negative);
         totalRecoveredEL.text("Total Recovered: " + response.recovered);
         statsDivEL.append(stateEL,positiveCasesEL,negativeCasesEL,totalRecoveredEL);
+        $('#covidstats').append(statsDivEL);
     })
 }
 
@@ -37,10 +38,13 @@ $("#validateBtn").on("click", function () {
     if (count >= 3) {
         $("#message").text("You may have COVID-19. Here is a list of testing centers near you:");
         getNearbyCovidTesting();
+        displayCovidStats();
     } else {
         $("#message").text("You may not have COVID-19. Here is a list of doctors near you:");
         getNearbyDoctorsOffice();
+        displayCovidStats();
     }
+    
 });
 
 //get lat/long coordinantes of the user
