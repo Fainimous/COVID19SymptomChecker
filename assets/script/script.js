@@ -117,7 +117,12 @@ function getNearbyDoctorsOffice() {
                 phoneEl.text(phone);
                 addressEl.text(address);
                 $('#locations').append(nameEl, phoneEl, addressEl);
-                $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($('#locations'));
+                $('#locations').append(nameEl, phoneEl, addressEl);
+                if (website == null) {
+                    $('<p>No Website Information Provided.</p>').appendTo($('#locations'));
+                } else {
+                    $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($('#locations'));
+                }
                 console.log(name);
                 console.log(phone);
                 console.log(address);
@@ -157,13 +162,20 @@ function getNearbyCovidTesting() {
                 var name = response.result.name;
                 var phone = response.result.formatted_phone_number;
                 var address = response.result.vicinity;
+                var website = response.result.website;
                 nameEl.text(name);
                 phoneEl.text(phone);
                 addressEl.text(address);
                 $('#locations').append(nameEl, phoneEl, addressEl);
+                if (website == null) {
+                    $('<p>No Website Information Provided.</p>').appendTo($('#locations'));
+                } else {
+                    $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($('#locations'));
+                }
                 console.log(name);
                 console.log(phone);
                 console.log(address);
+                console.log(website);
             })
         }
     })
