@@ -1,5 +1,3 @@
-// global variables
-
 function displayCovidStats() {
     // The Covid Tracking Project API query
     var state = JSON.parse(localStorage.getItem("state"));
@@ -9,8 +7,6 @@ function displayCovidStats() {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        console.log(response);
-        //dynamically create HTML for the Covid stats
         var stateEL = $('<h2 id="state">');
         var positiveCasesEL = $('<p>');
         var negativeCasesEL = $('<p>');
@@ -43,7 +39,6 @@ $("#validateBtn").on("click", function () {
         getNearbyDoctorsOffice();
         displayCovidStats();
     }
-    
 });
 
 //get lat/long coordinantes of the user
@@ -81,10 +76,7 @@ function getStateCode() {
         //This will return the reverse geolocation data, where we should find the state code to assign to local storage along with the coords
     }).then(function (response) {
         localStorage.setItem("state", JSON.stringify(response.results[0].address_components[5].short_name));
-        // displayCovidStats();
-    }
-
-    )
+    })
 }
 
 //google API query
@@ -127,7 +119,7 @@ function getNearbyDoctorsOffice() {
                 if (website == null) {
                     $('<p>No Website Information Provided.</p>').appendTo($(cardEL));
                 } else {
-                    $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($(cardEL));
+                    $('<a href="' + website + '" target="_blank">Visit Website</a>').appendTo($(cardEL));
                 }
             })
         }
@@ -172,7 +164,7 @@ function getNearbyCovidTesting() {
                 if (website == null) {
                     $('<p>No Website Information Provided.</p>').appendTo($(cardEL));
                 } else {
-                    $('<a href="' + website + '" + target="_blank">' + website + '</a>').appendTo($(cardEL));
+                    $('<a href="' + website + '" target="_blank">Visit Website</a>').appendTo($(cardEL));
                 }
             })
         }
