@@ -54,6 +54,7 @@ h2 {
   width: 100%;
   text-align: center;
 }
+
 .results {
   display: flex;
   flex-direction: column;
@@ -71,6 +72,34 @@ h2 {
   margin: 20px;
 }
 
+.card {
+  background-color: lightblue;
+  border-radius: 7px;
+  margin-right: 3%;
+  margin-left: auto;
+}
+
+.pure-u-md-1-4 {
+  float: left;
+  margin-left: 4%;
+  background-color: rgb(255, 165, 0, .75);
+  text-align: center;
+  margin-top: 1.5%;
+  border-radius: 7px;
+}
+
+.pure-u-md-3-5 {
+  width: 60%;
+  margin-right: 3%;
+  margin-left: auto;
+}
+
+#message {
+  font-weight: bold;
+  font-size: 24px;
+  margin-top: 1%;
+}
+  
 @media only screen and (min-width: 768px) {
   header {
     font-size: 24px;
@@ -81,15 +110,4 @@ h2 {
   }
   .results {
     flex-direction: row;
-}
-
-  .container-left {
-    width: 33%;
-}
-
-  .container-right {
-    width: 67%;
-}
-
-
 }
