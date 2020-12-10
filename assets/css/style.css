@@ -11,10 +11,7 @@ body {
 }
 
 .container {
-  margin-left: auto;
-  margin-right: auto;
   text-align: center;
-  padding: 20px;
 }
 
 .symptoms-list {
@@ -22,6 +19,21 @@ body {
   text-align: left;
   margin-left: auto;
   margin-right: auto;
+}
+
+#checkBoxes {
+  padding: 20px;
+}
+
+#covidstats {
+  margin: 20px;
+  background-color: rgb(255, 165, 0, .75);
+  text-align: center;
+  border-radius: 8px;
+}
+
+#locations {
+  margin: 20px;
 }
 
 header {
@@ -49,6 +61,7 @@ ul {
 h2 {
   font-size: 24px;
   font-weight: bold;
+  margin: 0px;
 }
 
 .symptoms {
@@ -67,41 +80,11 @@ h2 {
   font-size: 30px;
 }
 
-.results {
-  display: flex;
-  flex-direction: column;
-}
-
-.container-left {
-  text-align: center;
-  padding: 2px;
-  margin: 20px;
-}
-
-.container-right {
-  text-align: center;
-  padding: 2px;
-  margin: 20px;
-}
-
 .card {
   background-color: lightblue;
   border-radius: 7px;
-}
-
-.pure-u-md-1-4 {
-  float: left;
-  margin-left: 4%;
-  margin-right: auto;
-  background-color: rgb(255, 165, 0, .75);
-  text-align: center;
-  border-radius: 7px;
-  margin-top: 4.25%;
-}
-
-.pure-u-md-3-5 {
-  margin-right: 3%;
-  margin-left: auto;
+  padding: 10px;
+  margin-top: 20px;
 }
 
 #message {
@@ -117,9 +100,5 @@ h2 {
 
   #validateBtn {
     width: initial;
-  }
-
-  .results {
-    flex-direction: row;
   }
 }
