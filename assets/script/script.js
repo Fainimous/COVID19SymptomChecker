@@ -31,11 +31,13 @@ $("#validateBtn").on("click", function () {
         }
     });
     if (count >= 3) {
-        $("#message").text("You may have COVID-19. Here is a list of testing centers near you:");
+        $('<h1>').text("You may have COVID-19.").appendTo($('#message'));
+        $('<h2>').text("Here is a list of testing centers near you:").appendTo($('#locations'));
         getNearbyCovidTesting();
         displayCovidStats();
     } else {
-        $("#message").text("You may not have COVID-19. Here is a list of doctors near you:");
+        $('<h1 id="result">').text("You may not have COVID-19.").appendTo($('#message'));
+        $('<h2>').text("Here is a list of Doctor's offices near you:").appendTo($('#locations'));
         getNearbyDoctorsOffice();
         displayCovidStats();
     }
@@ -171,8 +173,6 @@ function getNearbyCovidTesting() {
     })
 }
 
-// un-comment these to test :]
-//getCoordinates();
 if (localStorage.getItem("position") === null) {
     getCoordinates();
 }

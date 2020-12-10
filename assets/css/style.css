@@ -2,6 +2,10 @@
   font-family: 'Roboto', sans-serif;
 }
 
+body {
+  color: #555358;
+}
+
 .hide {
   display: none;
 }
@@ -28,7 +32,7 @@ header {
   text-align: center;
   word-wrap: break-word;
   font-size: 16px;
-  width: 100%;
+  width: 100vw;
 }
 
 .footer-left {
@@ -59,6 +63,10 @@ h2 {
   text-align: center;
 }
 
+#result {
+  font-size: 30px;
+}
+
 .results {
   display: flex;
   flex-direction: column;
@@ -66,34 +74,32 @@ h2 {
 
 .container-left {
   text-align: center;
-  padding: 2px;;
+  padding: 2px;
   margin: 20px;
 }
 
 .container-right {
   text-align: center;
-  padding: 2px;;
+  padding: 2px;
   margin: 20px;
 }
 
 .card {
   background-color: lightblue;
   border-radius: 7px;
-  margin-right: 3%;
-  margin-left: auto;
 }
 
 .pure-u-md-1-4 {
   float: left;
   margin-left: 4%;
+  margin-right: auto;
   background-color: rgb(255, 165, 0, .75);
   text-align: center;
-  margin-top: 1.5%;
   border-radius: 7px;
+  margin-top: 4.25%;
 }
 
 .pure-u-md-3-5 {
-  width: 60%;
   margin-right: 3%;
   margin-left: auto;
 }
@@ -112,6 +118,7 @@ h2 {
   #validateBtn {
     width: initial;
   }
+
   .results {
     flex-direction: row;
   }
