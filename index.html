@@ -10,54 +10,72 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <title>COVID-19 Symptom Checker</title>
 </head>
+<header>
+  <h1>COVID-19 <br> Symptom Checker</h1>
+</header>
+
 <body>
-  <div class="container">
-    <header>
-      <p><strong>Please check the appropriate boxes</strong></p>
-    </header>
+  <div id="checkBoxes" class="container">
     <h2>What are your symptoms?</h2>
-    <div class = symptoms-list>
-    <input type="checkbox" class="symptoms" value="Fever" />
-    <label for="Fever">Fever</label>
-    <br>
-    <input type="checkbox" class="symptoms" value="Tiredeness" />
-    <label for="Tiredness">Tiredness</label>
-    <br>
-    <input type="checkbox" class="symptoms" value="Dry Cough" />
-    <label for="Dry Cough">Dry Cough</label>
-    <br>
-    <input type="checkbox" class="symptoms" value="Sore Throat" />
-    <label for="Sore Throat">Sore Throat</label>
-    <br>
-    <input type="checkbox" class="symptoms" value="Shortness of Breath" />
-    <label for="Shortness of Breath">Shortness of Breath</label>
-    <br>
-    <input type="checkbox" class="symptoms" value="Loss of Taste or Smell" />
-    <label for="Loss of Taste or Smell">Loss of Taste or Smell</label>
-    <br>
-    <input type="checkbox" class="symptoms" value="Chest Pain" />
-    <label for="Chest Pain">Chest Pain</label>
-    <br>
-    <input type="checkbox" class="symptoms" value="Rash" />
-    <label for="Rash">Rash</label>
-  <br>
-  <br>
-<button id ="validateBtn">Validate</button>
+    <p><strong>Please check the appropriate boxes</strong></p>
+    <div class=symptoms-list>
+      <input type="checkbox" class="symptoms" value="Fever" />
+      <label for="Fever">Fever</label>
+      <br>
+      <input type="checkbox" class="symptoms" value="Tiredeness" />
+      <label for="Tiredness">Tiredness</label>
+      <br>
+      <input type="checkbox" class="symptoms" value="Dry Cough" />
+      <label for="Dry Cough">Dry Cough</label>
+      <br>
+      <input type="checkbox" class="symptoms" value="Sore Throat" />
+      <label for="Sore Throat">Sore Throat</label>
+      <br>
+      <input type="checkbox" class="symptoms" value="Shortness of Breath" />
+      <label for="Shortness of Breath">Shortness of Breath</label>
+      <br>
+      <input type="checkbox" class="symptoms" value="Loss of Taste or Smell" />
+      <label for="Loss of Taste or Smell">Loss of Taste or Smell</label>
+      <br>
+      <input type="checkbox" class="symptoms" value="Chest Pain" />
+      <label for="Chest Pain">Chest Pain</label>
+      <br>
+      <input type="checkbox" class="symptoms" value="Rash" />
+      <label for="Rash">Rash</label>
+      <br>
+      <br>
     </div>
-<br>
-<br>
-<div id = "message"></div>
-<br>
-</div>
-  <div>What people in your area are experiencing right now:</div>
+    <button id="validateBtn">Validate</button>
+    <br>
+    <br>
+    <br>
+  </div>
+  <div class="results">
+    <div id="covidstats" class="container-left">What people in your area are experiencing right now:</div>
+    <div id="locations" class="message container-right"></div>
+  </div>
   </div>
   <br>
   </div>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-left">
+        Made with ❤️ by: Andree, Russell, and Chris
+      </div>
+      <div class="footer-right">
+        <ul>
+          <li>Find us on GitHub :]</li>
+          <li><a href="https://github.com/AndreeDantzler">https://github.com/AndreeDantzler</a></li>
+          <li><a href="https://github.com/treyjewett">https://github.com/treyjewett</a></li>
+          <li><a href="https://github.com/fainimous">https://github.com/fainimous</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3cN9fFq2wZXBnBtB9pCu-nv72cNa4MVE&libraries=places"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="assets/script/script.js"></script>
-
 </body>
 
 </html>
